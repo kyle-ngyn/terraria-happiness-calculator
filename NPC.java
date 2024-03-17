@@ -45,15 +45,21 @@ public class NPC {
     public int calcHappiness() {
         double happiness = 1.00;
 
+        // Multiply by biome modifier if it exists.
         if (preferences.containsKey(biome)) {
             happiness *= preferences.get(biome);
         }
+
+        // If an NPC has two or less neighbors, add a solitude bonus.
         if (neighbors.size() <= 2) {
             happiness *= 0.95;
         }
+        // If an NPC has more than three neighbors, add a crowded penalty.
         else if (neighbors.size() > 3) {
             happiness *= 1.05;
         }
+        // Loop through the HashMap and see if the NPC has a preference modifier for their current neighbors.
+        // If so, multiply the current happiness modifier by that preference value.
         for (HashMap.Entry<String, Double> entry : preferences.entrySet()) {
             if (neighbors.contains(entry.getKey())) {
                 happiness *= entry.getValue();
@@ -61,6 +67,7 @@ public class NPC {
         }
         happiness *= 100;
 
+        // Happiness multiplier is capped at 75.
         if (happiness < 75) {
             return 75;
         }

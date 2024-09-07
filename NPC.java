@@ -1,16 +1,16 @@
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.HashMap;
 
 public class NPC {
     private String name;
     private String biome;
-    private ArrayList<String> neighbors;
+    private HashSet<String> neighbors;
     private HashMap<String, Double> preferences;
 
     public NPC(String n, String b) {
         name = n;
         biome = b;
-        neighbors = new ArrayList<String>();
+        neighbors = new HashSet<String>();
         preferences = new HashMap<String, Double>();
     }
 
@@ -30,8 +30,8 @@ public class NPC {
         neighbors.add(n);
     }
 
-    public void removeNeighbor(int index) {
-        neighbors.remove(index);
+    public void removeNeighbor(String n) {
+        neighbors.remove(n);
     }
 
     public void addPreference(String p, double d) {
@@ -60,9 +60,14 @@ public class NPC {
         }
         // Loop through the HashMap and see if the NPC has a preference modifier for their current neighbors.
         // If so, multiply the current happiness modifier by that preference value.
-        for (HashMap.Entry<String, Double> entry : preferences.entrySet()) {
-            if (neighbors.contains(entry.getKey())) {
-                happiness *= entry.getValue();
+        // for (HashMap.Entry<String, Double> entry : preferences.entrySet()) {
+        //     if (neighbors.contains(entry.getKey())) {
+        //         happiness *= entry.getValue();
+        //     }
+        // }
+        for (String neighbor : neighbors) {
+            if (preferences.containsKey(neighbor)) {
+                happiness *= preferences.get(neighbor);
             }
         }
         happiness *= 100;

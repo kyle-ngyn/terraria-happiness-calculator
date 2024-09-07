@@ -210,7 +210,8 @@ public class Calculator {
                             + "Data from https://terraria.wiki.gg/wiki/NPCs#Happiness\n\n"
                             + "Notes:\n"
                             + "* Assumes that all NPCs in the same biome are neighbors and within 25 tiles of each other.\n"
-                            + "* Happiness is calculated when an NPC's chat window is opened, lower is better.\n"
+                            + "* Happiness is calculated when an NPC's chat window is opened.\n"
+                            + "* Lower is better. The final price of an NPC's sold items are found by multiplying the base price and the happiness value.\n"
                             + "* A happiness multiplier of 85 or lower is required for pylons to be available for purchase.\n"
                             + "* Town pets do not affect happiness, but can contribute to pylon placement requirements.\n");
         System.out.println("Calculated happiness: " + Guide.calcHappiness());
